@@ -1,6 +1,6 @@
 defmodule ParzivalWeb.Landing.HomeLive.Index do
   @moduledoc false
-  use ParzivalWeb, [:live_view, {ParzivalWeb.LayoutView, "landing.html"}]
+  use ParzivalWeb, [:live_view, {ParzivalWeb.LayoutView, "landing2.html"}]
 
   @schedule Jason.decode!(File.read!("data/schedule.json"))
             |> Enum.map(fn {key, value} ->

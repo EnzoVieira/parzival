@@ -18,19 +18,6 @@ defmodule ParzivalWeb.Router do
   end
 
   scope "/", ParzivalWeb do
-    pipe_through [:browser, :redirect_if_user_is_authenticated]
-
-    get "/register", UserRegistrationController, :new
-    post "/register", UserRegistrationController, :create
-    get "/login", UserSessionController, :new
-    post "/login", UserSessionController, :create
-    get "/reset_password", UserResetPasswordController, :new
-    post "/reset_password", UserResetPasswordController, :create
-    get "/reset_password/:token", UserResetPasswordController, :edit
-    put "/reset_password/:token", UserResetPasswordController, :update
-  end
-
-  scope "/", ParzivalWeb do
     pipe_through [:browser]
 
     live_session :user, on_mount: [{ParzivalWeb.Hooks, :current_user}] do
@@ -44,100 +31,6 @@ defmodule ParzivalWeb.Router do
         live "/team", TeamLive.Index, :index
       end
     end
-  end
-
-  scope "/", ParzivalWeb do
-    pipe_through [:browser, :require_authenticated_user]
-
-    live_session :logged_in, on_mount: [{ParzivalWeb.Hooks, :current_user}] do
-      scope "/app", App do
-        live "/", DashboardLive.Index, :index
-
-        live "/curriculum", CurriculumLive.Index, :index
-        live "/offers/", OfferLive.Index, :index
-        live "/offers/new", OfferLive.New, :new
-        live "/offers/:id", OfferLive.Show, :show
-        live "/offers/:id/edit", OfferLive.Edit, :edit
-
-        live "/companies/", CompanyLive.Index, :index
-        live "/companies/new", CompanyLive.New, :new
-        live "/companies/:id", CompanyLive.Show, :show
-        live "/companies/:id/edit", CompanyLive.Edit, :edit
-
-        live "/store/", ProductLive.Index, :index
-        live "/store/:id", ProductLive.Show, :show
-
-        live "/vault", OrderLive.Index, :index
-        live "/vault/:id", OrderLive.Show, :show
-
-        live "/announcements", AnnouncementLive.Index, :index
-        live "/announcements/:id", AnnouncementLive.Show, :show
-
-        live "/missions", MissionLive.Index, :index
-
-        scope "/missions" do
-          pipe_through [:require_level]
-          live "/:id", MissionLive.Show, :show
-        end
-
-        live "/profile", ProfileLive.Index, :index
-      end
-
-      scope "/admin", Backoffice, as: :admin do
-        live "/accounts/", UserLive.Index, :index
-        live "/accounts/new", UserLive.New, :new
-        live "/accounts/:id", UserLive.Show, :show
-        live "/accounts/:id/edit", UserLive.Edit, :edit
-
-        scope "/jobs" do
-          live "/types/", OfferTypeLive.Index, :index
-          live "/types/new", OfferTypeLive.Index, :new
-          live "/types/:id/edit", OfferTypeLive.Index, :edit
-
-          live "/times/", OfferTimeLive.Index, :index
-          live "/times/new", OfferTimeLive.Index, :new
-          live "/times/:id/edit", OfferTimeLive.Index, :edit
-        end
-
-        live "/store/new", ProductLive.New, :new
-        live "/store/:id/edit", ProductLive.Edit, :edit
-
-        scope "/missions" do
-          live "/new", MissionLive.New, :new
-          live "/:id/edit", MissionLive.Edit, :edit
-
-          live "/dificulty/", DificultyLive.Index, :index
-          live "/dificulty/new", DificultyLive.Index, :new
-          live "/dificulty/:id/edit", DificultyLive.Index, :edit
-        end
-
-        scope "/tools" do
-          live "/faqs/", FaqsLive.Index, :index
-          live "/faqs/new", FaqsLive.New, :new
-          live "/faqs/:id", FaqsLive.Show, :show
-          live "/faqs/:id/edit", FaqsLive.Edit, :edit
-
-          live "/announcements/new", AnnouncementLive.New, :new
-          live "/announcements/:id/edit", AnnouncementLive.Edit, :edit
-        end
-      end
-    end
-
-    get "/settings", UserSettingsController, :edit
-    put "/settings", UserSettingsController, :update
-    get "/settings/confirm_email/:token", UserSettingsController, :confirm_email
-    get "/cv/:attendee_id", PdfController, :cv
-    get "/cv/preview", PdfController, :cv_preview
-  end
-
-  scope "/", ParzivalWeb do
-    pipe_through [:browser]
-
-    delete "/log_out", UserSessionController, :delete
-    get "/confirm", UserConfirmationController, :new
-    post "/confirm", UserConfirmationController, :create
-    get "/confirm/:token", UserConfirmationController, :edit
-    post "/confirm/:token", UserConfirmationController, :update
   end
 
   # Other scopes may use custom stacks.

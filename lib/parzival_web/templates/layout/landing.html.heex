@@ -14,14 +14,11 @@
     <div class="sm:hidden block absolute bottom-0 left-0 w-full rounded-t-[50px] h-[96px] -z-20 bg-secondary sm:bg-none drop-shadow-[0_35px_35px_rgba(0,0,0,0.75)]" />
     <div class="flex flex-row justify-between items-center">
       <div class="flex flex-col gap-y-2 px-2 text-center">
-        <span class="text-sm font-normal text-white sm:font-bold md:text-lg hover:underline underline-offset-2">
-          General Regulation
-        </span>
         <div class="hidden flex-row gap-x-12 justify-center sm:flex">
           <%= link to: "https://www.instagram.com/join_uminho/" do %>
             <Ionicons.Filled.logo_instagram class="w-5 h-auto fill-white hover:fill-tertiary" />
           <% end %>
-          <%= link to: "" do %>
+          <%= link to: "https://www.linkedin.com/company/join-di-uminho/" do %>
             <Ionicons.Filled.logo_linkedin class="w-5 h-auto fill-white hover:fill-tertiary" />
           <% end %>
           <%= link to: "https://github.com/joinum/" do %>
@@ -32,11 +29,7 @@
       <div>
         <img class="w-32" src={Routes.static_path(@socket, "/images/logo.svg")} alt="JOIN Logo" />
       </div>
-      <div class="flex items-center px-2">
-        <span class="text-sm font-normal text-center text-white sm:font-bold md:text-lg hover:underline underline-offset-2">
-          Previous edition
-        </span>
-      </div>
+      <div class="flex items-center px-2"></div>
     </div>
   </footer>
 </body>
